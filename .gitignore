@@ -1,8 +1,1 @@
-.DS_Store
-test.html
-*kopie_op_macbook*
-/nbproject
-*~
-.idea
-api/js/development.js
-/docs/_build
+_build/
