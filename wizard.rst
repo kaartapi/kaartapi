@@ -76,7 +76,7 @@ vlak). Het afsluiten van een vlak of een lijn gebeurt met een dubbele
 muisklik. Nadat de marker is aangebracht kan deze voorzien worden van
 een titel en een omschrijving in het tekstvak dat geopend is. In de
 tekst kunnen ook URL links worden opgenomen bijvoorbeeld :code:`<a
-href="http://www.theaterdemusketon.nl">Theater de Musketon</a>`.
+href="https://www.theaterdemusketon.nl">Theater de Musketon</a>`.
 
 |image8.png|
 
@@ -318,7 +318,7 @@ van de x en de y coördinaat te worden opgegeven.
 
 Voor een punt(WKT), lijn(WKT) en een vlak(WKT) dient u de naam van
 het attribuut op te geven waarin de wkt informatie wordt opgeslagen.
-Voor meer informatie over het WKT formaat zie `Wikipedia <http://en.wikipedia.org/wiki/Well-known_text>`_ .
+Voor meer informatie over het WKT formaat zie `Wikipedia <https://en.wikipedia.org/wiki/Well-known_text>`_ .
 
 |image19.png|
 

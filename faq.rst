@@ -8,11 +8,11 @@ Vraag 1 - eigen afbeelding gebruiken als marker op de kaart
 Hoe kan ik eenvoudig een eigen plaatje toevoegen als marker in de kaart? Bijv. voor de komende kerstmarkt in mijn gemeente wil ik een plaatje van een kerstboom op de kaart plaatsen.
 
 **Antwoord**
-Wanneer het om (maximaal) één eigen plaatje gaat, kan deze in de markerset van de Wizard worden opgenomen door een parameter toe te voegen aan de url van PDOK Kaart. De benodigde parameter is `mimg`. De standaard url van PDOK Kaart is `http://kaart.PDOK.nl` Hierachter kan de parameter `mimg` worden gezet met de url van het gewenste plaatje:
+Wanneer het om (maximaal) één eigen plaatje gaat, kan deze in de markerset van de Wizard worden opgenomen door een parameter toe te voegen aan de url van PDOK Kaart. De benodigde parameter is `mimg`. De standaard url van PDOK Kaart is `https://kaart.PDOK.nl` Hierachter kan de parameter `mimg` worden gezet met de url van het gewenste plaatje:
 
 ::
 
-  http://kaart.PDOK.nl/?mimg=http://inspire-forum.jrc.ec.europa.eu/pg/groupicon/179/small/1350574732.jpg 
+  https://kaart.PDOK.nl/?mimg=https://inspire-forum.jrc.ec.europa.eu/pg/groupicon/179/small/1350574732.jpg 
 
 Door nu stap 2 van de Wizard te openen (“voeg een marker toe”) komt het eigen plaatje als eerste marker beschikbaar. Wanneer dit niet gebeurt, is een refresh van de browser noodzakelijk (Windows: ctrl F5). De eigen marker kan nu op de kaart worden geplaatst. 
 
@@ -29,7 +29,7 @@ Ik wil meerdere eigen plaatjes gebruiken als marker. Hoe kan ik dat realiseren?
 **Antwoord**
 Wanneer meer dan één eigen marker gewenst is, kan een gebruiker een eigen markerset aanmaken die de markerset van PDOK Kaart (tijdelijk) overschrijft. Hiervoor zijn de volgende stappen noodzakelijk:
 
-Download de standaard markerset van PDOK Kaart: http://kaart.PDOK.nl/api/js/PDOK-markers.js
+Download de standaard markerset van PDOK Kaart: https://kaart.pdok.nl/api/js/pdok-markers.js
 
 Wijzig de inhoud van dit bestand in een teksteditor door desgewenst puntsymbolen, lijnsymbolen of vlaksymbolen aan te passen of toe te voegen. Wijzig bijvoorbeeld
 
@@ -48,7 +48,7 @@ in
 
     id: 'mt1',
     name: 'Eigen plaatje',
-    externalGraphic: " http://inspire-forum.jrc.ec.europa.eu/pg/groupicon/179/small/1350574732.jpg",
+    externalGraphic: "https://inspire-forum.jrc.ec.europa.eu/pg/groupicon/179/small/1350574732.jpg",
     graphicHeight: 32,
     graphicWidth: 32,
     graphicYOffset: -16
@@ -67,7 +67,7 @@ Via de `markersdef` parameter is het mogelijk om de standaard PDOK Kaar markerse
 
 ::
 
-    http://kaart.PDOK.nl/?markersdef=http://dl.dropbox.com/u/58173721/mijn_eigen _markers.js
+    https://kaart.PDOK.nl/?markersdef=https://dl.dropbox.com/u/58173721/mijn_eigen_markers.js
 
 Bij het openen van stap 2 in de Wizard worden nu de eigen markers getoond. Voor meer informatie zie het document `Technische documentatie PDOK Kaart` paragraaf 3.2.
 
@@ -97,7 +97,7 @@ Vraag 4 - Fout bij ophalen KML via URL
 Wanneer ik een URL van een KML opneem in PDOK Kaart (via stap 2) krijg ik de volgende foutmelding: “Fout bij ophalen van url”. In Google Maps werkt de url wel. Bijvoorbeeld bij: www.ideoma.nl/bouwnetwerk/dienstlandelijkgebiedutrecht.KML
 
 **Antwoord**
-De url van de KML moet beginnen met `http://`. Als dat correct is, komt er mogelijk een melding over de proxy. Zie hiervoor :ref:`vraag 10 <vraag-10>`.
+De url van de KML moet beginnen met `https://`. Als dat correct is, komt er mogelijk een melding over de proxy. Zie hiervoor :ref:`vraag 10 <vraag-10>`.
 
 Niet alle KML mogelijkheden worden in PDOK Kaart ondersteund. PDOK Kaart gebruikt KML als Vector data. De KML moet dus zogenaamde Punt, Lijn of Vlakken als 'Placemarks' bevatten.
 
@@ -168,7 +168,7 @@ Selecteer de kolommen A t/m D en kies format(opmaak) en daarna Cell uit het Menu
 
 Vul in de kolom `point` de y en x coördinaten (in RD) in warbij de coordinaten gescheiden zijn door een komma: 518000,117200. Let op: eerst de y-coördinaat en daarna de x-coordinaat(!) Vul de titel en de omschrijving in. 
 
-Optioneel kan het markertype worden meegegeven. De naam van het markertype is `mt+volgnummer`. Het volgnummer verwijst naar het markertype in de lijst met markers die getoond worden in de Wizard (zie ook http://geonovum.github.com/PDOKkaart/documentatie/). Er kunnen ook eigen markers worden gebruikt, zie :ref:`vraag 2 <vraag-2>`.
+Optioneel kan het markertype worden meegegeven. De naam van het markertype is `mt+volgnummer`. Het volgnummer verwijst naar het markertype in de lijst met markers die getoond worden in de Wizard (zie ook https://kaart.pdok.nl/docs/). Er kunnen ook eigen markers worden gebruikt, zie :ref:`vraag 2 <vraag-2>`.
 
 Sla het excel bestand op als een 'tab delimited text (TXT)' bestand.
 
@@ -188,7 +188,7 @@ Vraag 10 - Melding over een proxy
 Ik krijg een melding over een proxy. Wat doe ik hiermee?
 
 **Antwoord**
-Een van de lastige zaken bij webapplicaties met kaarten is het gebruik van externe vector/markerdata. Een van de veiligheidsmaatregelen die een browser treft is dat de browser het standaard onmogelijk maakt om gegevens (let op: images worden NIET gezien als gegevens) van een andere website te 'mengen' met een website. Hierdoor is het wel mogelijk om een externe WMS of WMTS als kaartlaag op te nemen (= images), maar zullen de gegevens van een externe(!) WFS (= xml-data ) door de browser worden tegengehouden. Zie ook http://trac.osgeo.org/openlayers/wiki/FrequentlyAskedQuestions#ProxyHost
+Een van de lastige zaken bij webapplicaties met kaarten is het gebruik van externe vector/markerdata. Een van de veiligheidsmaatregelen die een browser treft is dat de browser het standaard onmogelijk maakt om gegevens (let op: images worden NIET gezien als gegevens) van een andere website te 'mengen' met een website. Hierdoor is het wel mogelijk om een externe WMS of WMTS als kaartlaag op te nemen (= images), maar zullen de gegevens van een externe(!) WFS (= xml-data ) door de browser worden tegengehouden. Zie ook https://trac.osgeo.org/openlayers/wiki/FrequentlyAskedQuestions#ProxyHost
 
 Om dit toch mogelijk te maken worden aanroepen naar externe gegevens dan 'omgeleid' via dezelfde server als waar de website vandaan komt. Dus op de server waar kaart.PDOK.nl vandaan komt draait een zogenaamde 'proxy-server' die het mogelijk maakt om via die server gegevens van externe servers binnen te halen. Voor de browser zijn de gegevens dan opeens wel 'vertrouwd'. De proxy-server is vaak weer beveiligd om alleen maar data van 'vertrouwde domeinen/servers' toe te staan.
 
@@ -202,7 +202,7 @@ Vraag 11 - Eigen marker, KML of TXT bestand uploaden in PDOK forum
 Hoe kan ik een eigen marker, KML of txt bestand uploaden in het PDOK Kaart forum?
 
 **Antwoord**
-Ga naar het http://www.pdok.nl/nl/forums/PDOK-kaart-onderwerpen en kies ‘nieuw onderwerp’ (om deze functie te kunnen gebruiken moet u ingelogd zijn, maak eventueel eerst een account aan). Maak een nieuw onderwerp aan en upload hierbij het betreffende bestand.
+Ga naar het https://geoforum.nl/c/applicaties-en-diensten/pdok-kaart/5 en kies ‘nieuw onderwerp’ (om deze functie te kunnen gebruiken moet u ingelogd zijn, maak eventueel eerst een account aan). Maak een nieuw onderwerp aan en upload hierbij het betreffende bestand.
 
 De URL van het toegevoegde bestand kunt u gebruiken in PDOK Kaart. De URL vindt u door in het forum het betreffende onderwerp te openen, de bijlage (het toegevoegde bestand) selecteren en de URL link van het bestand te kopiëren.
 
@@ -245,4 +245,4 @@ Vraag 14 - Gegenereerde URL URL verkorten
 De gegenereerde URL wil ik meesturen in een e-mail, maar hij is heel lang. Kan deze niet kleiner gemaakt worden?
 
 **Antwoord**
-Dat kan via bijv. de dienst `TinyURL <http://tinyurl.com/>`_.
+Dat kan via bijv. de dienst `TinyURL <https://tinyurl.com/>`_.

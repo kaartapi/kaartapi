@@ -68,8 +68,8 @@ website. Alleen configuratie staat lokaal of in de webpagina.
         "showmouseposition":true,
         "loc":"170000, 470000",
         "baselayers":[{"id":"BRT","visible":true}],
-        "markersdef":"http://demo-geoservices.rijkswaterstaat.nl/pdokkaart/api/js/pdok-markers.js",
-        "layersdef":"http://demo-geoservices.rijkswaterstaat.nl/pdokkaart/api/js/pdok-layers.js"
+        "markersdef":"https://demo-geoservices.rijkswaterstaat.nl/pdokkaart/api/js/pdok-markers.js",
+        "layersdef":"https://demo-geoservices.rijkswaterstaat.nl/pdokkaart/api/js/pdok-layers.js"
     };
 
 .. NOTE:: de 'standaardlagen' en de 'markers en lijnen' zijn geconfigureerd in aparte JSON bestanden, en kunnen dus worden vervangen door ander beter voor uw situatie eeigende lagen en makers/symbolen.
@@ -78,5 +78,5 @@ Ontwikkelen: zorg dat bovenin de pdok-api.js de twee meest benodigde URL's goed 
 
 ::
 
-    Pdok.ApiUrl = "http://kaart.pdok.nl/pdokkaart/api";`
-    OpenLayers.ProxyHost = “http://<UWDOMEIN>.nl/cgi-bin/proxy.py”
+    Pdok.ApiUrl = "https://kaart.pdok.nl/pdokkaart/api";`
+    OpenLayers.ProxyHost = “https://<UWDOMEIN>.nl/cgi-bin/proxy.py”
