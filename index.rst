@@ -11,10 +11,9 @@ De API stelt gebruikers in staat om PDOK Kaart functionaliteit via URL parameter
 
 PDOK Kaart wordt ontwikkeld en beheerd op GitHub:
  
- - broncode : https://github.com/Geonovum/pdokkaart
+ - broncode : https://github.com/PDOK/pdokkaart
+ - broncode documentatie: https://github.com/PDOK/pdokkaart/tree/docs
  - issues en bugs : https://github.com/Geonovum/pdokkaart/issues
- - ontwikkelversie : https://geonovum.github.io/pdokkaart/
-
 
 Documentatie
 ------------
