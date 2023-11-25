@@ -6,7 +6,7 @@ var Pdok = Pdok || {};
 window.Pdok = Pdok;
 
 // current PdokKaartApi version
-Pdok.API_VERSION_NUMBER = '1.2.3';
+Pdok.API_VERSION_NUMBER = '1.0.0';
 
 
 // CONFIGURATION
@@ -14,13 +14,9 @@ Pdok.API_VERSION_NUMBER = '1.2.3';
 //   OpenLayers.ProxyHost = window.location.protocol + "//" + window.location.host + "/proxy?url=";
 // Using https:// results in cross-origin problems when viewed via http
 
-// PDOK LOKET PRODUKTIE
-//Pdok.ApiUrl = 'https://kaart.pdok.nl/api';
+// KaartApi LOKET PRODUKTIE
+//Pdok.ApiUrl = 'https://kaartapi.nl/api';
 //OpenLayers.ProxyHost = window.location.protocol + "//" + window.location.host + "/proxy.php?url="; // kaart.pdok.nl
-
-// RIJKSWATERSTAAT
-//Pdok.ApiUrl = "http://demo-geoservices.rijkswaterstaat.nl/pdokkaart/api"; // demo url
-//OpenLayers.ProxyHost = window.location.protocol + "//" + window.location.host + "/proxy?url="; // Rijkswaterstaat proxy
 
 var protocol = window.location.protocol;
 if (window.location.protocol == 'file:') {
@@ -28,7 +24,7 @@ if (window.location.protocol == 'file:') {
 }
 
 // DEV
-Pdok.ApiUrl = protocol + '//kaart.pdok.nl/api';
+Pdok.ApiUrl = protocol + '//kaartapi.nl/api';
 //OpenLayers.ProxyHost = window.location.protocol + "//" + window.location.host + "/proxy?url="; 
 
 /**
