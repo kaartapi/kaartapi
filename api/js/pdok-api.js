@@ -2223,6 +2223,49 @@ Pdok.Api.prototype.createObjectTags = function(){
 };
 
 /**
+ * Create the minimal link string for this instance
+ */
+Pdok.Api.prototype.createMinimalMapLink = function(){
+    var uri = Pdok.createBaseUri();
+    var pathname = window.location.pathname;
+    if (pathname.toLowerCase().search("api.html") > -1){
+        uri += 'api.html';
+    } // little hack to make our own examples work
+    else if (pathname.toLowerCase().search("examples") > -1){
+        uri = uri.replace('examples/','');
+        uri += 'api/api.html';
+    }
+    else {
+        uri += 'api/api.html';
+    }
+    var config = this.getMinimalConfig('vialink');
+    var pdoklayers = [];
+    var i;
+    if(config.baselayers) {
+        for (i = 0; i < config.baselayers.length; ++i) {
+            if(config.baselayers[i].visible){
+                pdoklayers.push(config.baselayers[i].id);
+            }
+        }    
+        delete config.baselayers;
+    }
+    //Get the visible overlays and remove the others
+    if(config.overlays){
+        for (i = 0; i < config.overlays.length; ++i) {
+          if(config.overlays[i].visible){
+            pdoklayers.push(config.overlays[i].id);
+          }
+        }
+        delete config.overlays;
+    }
+    //Concat the layers, assuming the first to be the baselayer and write them to the config object
+    if (pdoklayers.length > 0){
+		config.pdoklayers = pdoklayers.join(',');
+    }
+	return uri + '?'+OpenLayers.Util.getParameterString(config);
+};
+
+/**
  * Create the link string for this instance
  */
 Pdok.Api.prototype.createMapLink = function(){
@@ -2462,6 +2505,138 @@ Pdok.Api.prototype.getConfig = function(uniqueid) {
             }
         }
     }
+    return config;
+};
+
+/**
+ * Api call to get a config object which can be used to start an Api instance in current state
+ * @param {type} uniqueid
+ * @returns {Pdok.Api.prototype.getConfig.config}
+ */
+Pdok.Api.prototype.getMinimalConfig = function(uniqueid) {
+    var config = {};
+    if(this.map){
+        config.zoom = this.map.getZoom();
+        // only add the LayerSwitcher parameter if false (default value is true)
+        if (typeof this.showlayerswitcher !== 'undefined' && this.showlayerswitcher == false){
+            config.showlayerswitcher = this.showlayerswitcher;
+        }
+        if (typeof this.showzoom !== 'undefined' && this.showzoom == false){
+            config.showzoom = this.showzoom;
+        }
+        if (typeof this.navigation !== 'undefined' && this.navigation == false){
+            config.navigation = this.navigation;
+        }
+        if (typeof this.showscaleline !== 'undefined' && this.showscaleline == false){
+            config.showscaleline = this.showscaleline;
+        }
+        if (typeof this.showmouseposition !== 'undefined' && this.showmouseposition == false){
+            config.showmouseposition = this.showmouseposition;
+        }
+        if (typeof this.geocoder !== 'undefined' && this.geocoder == false){
+            config.geocoder = JSON.stringify(this.geocoder);
+        }
+        if (typeof this.legend !== 'undefined' && this.legend == false){
+            config.legend = JSON.stringify(this.legend);
+        }
+		x = Math.round(this.map.getCenter().lon);
+		y = Math.round(this.map.getCenter().lat);
+        config.loc = x + "," + y;
+    }
+	var overlays = [];
+	var baselayers = [];
+	var mapLayer;
+	for (layerId in this.map.layers){
+		mapLayer = this.map.layers[layerId];
+		// NOT our this.featuresLayer and this.locationslayer 
+		if (!(mapLayer.name == this.FEATURESLAYER_NAME 
+			|| mapLayer.name == this.LOCATIONSLAYER_NAME
+			|| mapLayer.name.indexOf("OpenLayers.Handler.")>=0)){  // if there is still an editor active, we have such a layer
+			if (typeof mapLayer.pdokid !== 'undefined') {  // only pdok-layers should be added to these lists
+                    if (mapLayer.isBaseLayer) {
+                        baselayers.push({"id": mapLayer.pdokid, visible: mapLayer.visibility});
+                    } else {
+                        overlays.push({"id": mapLayer.pdokid, visible: mapLayer.visibility});
+                    }
+			}
+		}
+	}
+	if (baselayers.length > 0) {
+		config.baselayers = baselayers;
+	}
+	if (overlays.length > 0) {
+		config.overlays = overlays;
+	}
+	// wmsurl AND wmslayers
+	if(this.wmsurl && this.wmsurl.length>0 && this.wmslayers && this.wmslayers.length>0) {
+		config.wmsurl = this.wmsurl;
+		config.wmslayers = this.wmslayers;
+		if (this.wmsinfoformat && this.wmsinfoformat !== 'none'){
+			config.wmsinfoformat = this.wmsinfoformat;
+		}
+	}
+	// wmts
+	if (this.wmtsurl && this.wmtslayer && this.wmtsmatrixset && 
+		this.wmtsurl.length > 0 && this.wmtslayer.length > 0 && this.wmtsmatrixset.length > 0) {
+		config.wmtsurl = this.wmtsurl;
+		config.wmtslayer = this.wmtslayer;
+		config.wmtsmatrixset = this.wmtsmatrixset;
+	}
+
+	var tempLayer = this.featuresLayer.clone();
+	var allFeatures = tempLayer.features;
+	if (this.locationLayer.features.length === 1) {
+		allFeatures.push(this.locationLayer.features[0]);
+	}
+
+	// kmlurl OR txturl OR features
+	// at this moment NOT a combination of these two
+	// all features from KML or TXT are added to 'featureslayer'
+	// so if the user added even more markers/features
+	// we should try to make a diff, to know which features to add in the features-kmlstring-parameter
+	// but if the user has made changes by hand in wizard, it is getting even more comples
+	// so for now: there is either a kmlurl and/or a txturl OR only features as parameter
+	if (allFeatures.length > 0) {
+	//if (this.featuresLayer.features.length>0) {
+		var doFeatures = true;
+		// if features came from a kml/txt-url, do NOT write features yourself, only use kmlurl
+		// NOTE: so at this moment it is NOT possible to use kmlurl PLUS wizard features!!
+		if (this.kmlurl) {
+			config.kmlurl = this.kmlurl;
+			doFeatures = false;
+			// if kmlstyles
+			if (this.kmlstyles) {
+				config.kmlstyles = true;
+			}
+		}
+		if (this.txturl) {
+			config.txturl = this.txturl;
+			doFeatures = false;
+		}
+		if (this.mimg){
+			config.mimg = this.mimg;
+		}
+		if (doFeatures) {
+			// If only one feature is added and this is a point then use the parameter mloc
+			/*if (this.featuresLayer.features.length == 1 && this.featuresLayer.features[0].geometry.CLASS_NAME == "OpenLayers.Geometry.Point"){
+				config.mloc = this.featuresLayer.features[0].geometry.x + "," + this.featuresLayer.features[0].geometry.y;
+				config.titel = this.featuresLayer.features[0].attributes.name;
+				config.tekst =  this.featuresLayer.features[0].attributes.description;
+				config.mt = this.featuresLayer.features[0].attributes.styletype;
+			}*/
+			if (allFeatures.length === 1 && allFeatures[0].geometry.CLASS_NAME === "OpenLayers.Geometry.Point"){
+				config.mloc = Math.round(allFeatures[0].geometry.x) + "," + Math.round(allFeatures[0].geometry.y);
+				config.titel = allFeatures[0].attributes.name;
+				config.tekst =  allFeatures[0].attributes.description;
+				config.mt = allFeatures[0].attributes.styletype;
+			} else {
+				var myKML = this.createKML();
+				if(myKML){
+					config.features = myKML;
+				}
+			}
+		}
+	}
     return config;
 };
 
