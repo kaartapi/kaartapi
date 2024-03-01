@@ -587,6 +587,11 @@ for (var i=0; i<16; ++i) {
     matrixIdsLufo[i] = zeroPad(i, 2).toString();
 }
 
+var matrixIdsOak = new Array(16);
+for (var i=0; i<16; ++i) {
+    matrixIdsOak[i] = zeroPad(i, 1).toString();
+}
+
 function zeroPad(num, places) {
     var zero = places - num.toString().length + 1;
     return Array(+(zero > 0 && zero)).join("0") + num;
@@ -620,19 +625,18 @@ Pdok.Api.prototype.defaultPdokLayers = {
                 attribution: '<a href="https://www.pdok.nl/introductie/-/article/luchtfoto-pdok" target="_blank">&copy; CC-BY-NC</a>',
                 zoomOffset: 2
         },
-        OpenTopo_Achtergrondkaart: {
-            layertype: 'WMTS',
-            name: 'Open Topo Achtergrondkaart',
-            url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts?',
-            layer: 'opentopoachtergrondkaart',
-            style: null,
-            matrixSet: 'EPSG:28992',
-            transparent: 'true',
-            format: 'image/png',
-            visibility: true,
-            isBaseLayer: true,
-            singleTile: true
-        },
+        OAK: {
+				layertype: "WMTS",
+				name: "Open Achtergrondkaart (WMTS)",
+				url: "https://openbasiskaart.nl/mapcache/wmts/?",
+				layer: "osm",
+				style: "default",
+				matrixSet: "rd",
+				matrixIds : matrixIdsOak,
+				visibility: true,
+				isBaseLayer: true,
+				attribution: "(c) openbasiskaart.nl",
+		}
     };
 
 /**
@@ -2294,7 +2298,7 @@ Pdok.Api.prototype.createMapLink = function(){
     } else {
         pdoklayers.push("BRT");
         pdoklayers.push("LUFO");
-        pdoklayers.push("OpenTopo_Achtergrondkaart");
+        pdoklayers.push("OAK");
     }
 
     //Get the visible overlays and remove the others
