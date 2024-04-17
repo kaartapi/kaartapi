@@ -205,6 +205,39 @@ Pdok.Api.prototype.defaultLayers = {
     isBaseLayer: false,
     singleTile: true,
   },
+  BRT_GRIJS: {
+    layertype: "WMTS",
+    name: "BRT Achtergrondkaart - grijs (WMTS)",
+    url: "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?",
+    layer: "grijs",
+    style: null,
+    matrixSet: "EPSG:28992",
+    visibility: true,
+    isBaseLayer: true,
+    attribution: '&copy; CC BY Kadaster'
+  },
+  BRT_PASTEL: {
+    layertype: "WMTS",
+    name: "BRT Achtergrondkaart - grijs (WMTS)",
+    url: "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?",
+    layer: "pastel",
+    style: null,
+    matrixSet: "EPSG:28992",
+    visibility: true,
+    isBaseLayer: true,
+    attribution: '&copy; CC BY Kadaster'
+  },
+  BRT_WATER: {
+    layertype: "WMTS",
+    name: "BRT Achtergrondkaart - grijs (WMTS)",
+    url: "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0?",
+    layer: "water",
+    style: null,
+    matrixSet: "EPSG:28992",
+    visibility: true,
+    isBaseLayer: true,
+    attribution: '&copy; CC BY Kadaster'
+  },
   CULTUURHISTORISCHEOBJECTEN_ELEMENTEN: {
     layertype: "WMS",
     name: "Cultuurhistorische objecten - Elementen (WMS)",
@@ -293,7 +326,7 @@ Pdok.Api.prototype.defaultLayers = {
     isBaseLayer: false,
     singleTile: true,
   },
-  PDOK_luchtfoto: {
+  PDOK_luchtfoto_25: {
     layertype: "WMTS",
     name: "PDOK Luchtfoto Actueel Ortho 25cm RGB (WMTS)",
     url: "https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0?",
